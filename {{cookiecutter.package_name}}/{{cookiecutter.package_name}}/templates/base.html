@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    # block head
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="{{ assets.url_for('styles.css') }}">
+    <script src="{{ assets.url_for('main.js') }}" defer></script>
+    <title>{% block title %}{{cookiecutter.application_name}}{% endblock %}</title>
+    # endblock
+  </head>
+  <body>
+   <main class="container">
+    # block body
+    # endblock
+    </main>
+  </body>
+</html>

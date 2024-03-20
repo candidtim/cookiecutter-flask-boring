@@ -1,5 +1,11 @@
 # {{cookiecutter.application_name}}
 
+TODO: update content
+
+TODO: describe "first steps":
+
+ - create migrations
+
 {{cookiecutter.application_name}} description
 
 ## Quick Start

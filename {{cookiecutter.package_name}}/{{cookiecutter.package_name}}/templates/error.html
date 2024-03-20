@@ -1,0 +1,15 @@
+# extends "base.html"
+
+# block body
+<section>
+  <div><strong>{{ error.code }} - {{ error.name }}</strong></div>
+  <div>{{ error.description }}</div>
+</section>
+<section>
+  # if current_user is defined and current_user.is_authenticated
+  <a href="{{ url_for('private.index') }}">Home</a>
+  # else
+  <a href="{{ url_for('public.index') }}">Home</a>
+  # endif
+</section>
+# endblock

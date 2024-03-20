@@ -10,3 +10,19 @@ dist/
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
+{%- if cookiecutter.use_webpack == 'y' -%}
++node_modules/
+{%- endif -%}
++
++# Local development environment
++.env*
++!.env.example
++instance/
++requirements.txt
+{%- if cookiecutter.use_mysql == 'y' -%}
++mysql-data/
+{%- endif -%}
+{%- if cookiecutter.use_webpack == 'y' -%}
++assets/package-lock.json
++yourapplication/static/
+{%- endif -%}

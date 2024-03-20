@@ -1,0 +1,27 @@
+# extends "base.html"
+
+# block body
+# include "nav.html"
+<section>
+  Your data
+  <ul id="data" class="maybe-empty">
+    {%- for datum in data %}
+    <li>{{ datum.text }}</li>
+    {% endfor -%}
+  </ul>
+  <div class="if-empty">There is no data yet</div>
+</section>
+<section>
+  <form action="{{ url_for('.add_data') }}" method="POST">
+    <input class="button-fit" type="submit" value="Add more data">
+  </form>
+  <button class="button-fit"
+    hx-post="{{ url_for('.add_data_htmx') }}"
+    hx-trigger="click"
+    hx-target="#data"
+    hx-swap="beforeend"
+  >
+    Add more data (HTMX)
+  </button>
+</section>
+# endblock
