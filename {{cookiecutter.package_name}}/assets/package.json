@@ -23,7 +23,8 @@
     "webpack-remove-empty-scripts": "^1.0.4"
   },
   "dependencies": {
-    "@picocss/pico": "^2.0.6",
-    "htmx.org": "^1.9.11"
+    {%- if cookiecutter.use_htmx == 'y' %}
+    "htmx.org": "^1.9.11",{%- endif %}
+    "@picocss/pico": "^2.0.6"
   }
 }

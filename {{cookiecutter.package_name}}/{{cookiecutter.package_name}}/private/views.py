@@ -23,14 +23,8 @@ def add_data():
     data = Data(user_id=current_user.id, text=text)
     db.session.add(data)
     db.session.commit()
+    {%- if cookiecutter.use_htmx != "y" -%}
     return redirect(url_for("private.index"))
-
-
-@bp.route("/add-data-htmx", methods=["POST"])
-@login_required
-def add_data_htmx():
-    text = "".join(random.choice(string.ascii_lowercase) for i in range(12))
-    data = Data(user_id=current_user.id, text=text)
-    db.session.add(data)
-    db.session.commit()
+    {%- else -%}
     return render_template("private/added-data.html", data=data)
+    {%- endif -%}

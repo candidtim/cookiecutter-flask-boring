@@ -5,6 +5,7 @@ TODO: update content
 TODO: describe "first steps":
 
  - create migrations
+ - run code reformat (recommended)
 
 {{cookiecutter.application_name}} description
 

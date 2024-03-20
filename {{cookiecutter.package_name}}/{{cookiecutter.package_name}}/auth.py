@@ -34,35 +34,37 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     username = db.Column(db.String(255), unique=True)
-{%- if cookiecutter.auth == "auth0" %}
+    {%- if cookiecutter.auth == "auth0" %}
     name = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
     picture = db.Column(db.String(255))
     locale = db.Column(db.String(255))
-{% endif %}
+    {%- endif %}
+    {%- if cookiecutter.with_admin == 'y' %}
 
-{% if cookiecutter.use_admin == 'y' %}
     @property
     def is_admin(self):
         return self.email == app.config["ADMIN_EMAIL"]
-{% endif %}
 
+    {% endif -%}
     def get_id(self):
         return str(self.id)
+{%- if cookiecutter.auth == "auth0" %}
 
-{% if cookiecutter.auth == "auth0" %}
+
 class OAuth(OAuthConsumerMixin, db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User)
-{% endif %}
 
+
+{% endif -%}
 def init_app(app):
     # setup login manager
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
+{%- if cookiecutter.auth == "auth0" %}
 
-{% if cookiecutter.auth == "auth0" %}
     # setup Auth0
     bp.from_config = {
         "client_id": "AUTH0_OAUTH_CLIENT_ID",
@@ -78,9 +80,8 @@ def init_app(app):
         user_required=True,
     )
     app.register_blueprint(bp, url_prefix="/auth")
-{% endif %}
 
-{% if cookiecutter.auth == "auth0" %}
+
 @oauth_authorized.connect_via(bp)
 def on_logged_in(blueprint, token):
     res = blueprint.session.get("userinfo")
@@ -104,20 +105,29 @@ def on_logged_in(blueprint, token):
         login_user(user=user)
     else:
         abort(res.status_code)
-{% endif %}
 
+
+{% endif -%}
 @login_manager.user_loader
 def load_user(user_id: int) -> User:
     return db.session.get(User, user_id)
+{%- if cookiecutter.auth == "flask-login" %}
 
 
+@bp.route("/login")
+def login():
+    # TODO: login routine here
+    # login_user(user)
+
+
+{% endif -%}
 @bp.route("/logout")
 @login_required
 def logout():
     # clear session:
     logout_user()
+{%- if cookiecutter.auth == "auth0" %}
 
-{% if cookiecutter.auth == "auth0" %}
     # sign out from auth0:
     params = {
         "returnTo": url_for("public.index", _external=True),

@@ -10,7 +10,7 @@ dist/
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
-{%- if cookiecutter.use_webpack == 'y' -%}
+{%- if cookiecutter.static_files == 'webpack' -%}
 +node_modules/
 {%- endif -%}
 +
@@ -19,10 +19,10 @@ dist/
 +!.env.example
 +instance/
 +requirements.txt
-{%- if cookiecutter.use_mysql == 'y' -%}
+{%- if cookiecutter.db == 'mysql' -%}
 +mysql-data/
 {%- endif -%}
-{%- if cookiecutter.use_webpack == 'y' -%}
+{%- if cookiecutter.static_files == 'webpack' -%}
 +assets/package-lock.json
 +yourapplication/static/
 {%- endif -%}

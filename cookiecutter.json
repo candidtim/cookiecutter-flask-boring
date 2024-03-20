@@ -1,15 +1,16 @@
 {
   "application_name": "Your Application",
   "package_name": "yourapplication",
-  "use_poetry": "y",
-  "use_flake8": "y",
-  "use_black": "y",
-  "use_isort": "y",
-  "use_mypy": "y",
+  "use_poetry": "n",
+  "use_flake8": "n",
+  "use_black": "n",
+  "use_isort": "n",
+  "use_mypy": "n",
 
   "auth": ["flask-login", "auth0"],
   "db": ["sqlite", "mysql"],
   "static_files": ["raw", "webpack"],
-  "with_admin": "y",
-  "with_stripe": "y",
+  "with_admin": "n",
+  "with_stripe": "n",
+  "use_htmx": "n"
 }

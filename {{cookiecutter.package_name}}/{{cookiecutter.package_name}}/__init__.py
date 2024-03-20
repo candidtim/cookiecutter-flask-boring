@@ -22,18 +22,15 @@ def create_app(config_overrides=None):
     if config_overrides is not None:
         app.config.from_mapping(config_overrides)
 
-{% if cookiecutter.static_files == 'webpack' %}
-    assets.init_app(app)
-{%- endif %}
     db.init_app(app)
     auth.init_app(app)
     errors.init_app(app)
-{%- if cookiecutter.with_admin == 'y' %}
-    admin.init_app(app)
-{%- endif %}
-{%- if cookiecutter.with_stripe == 'y' %}
-    stripe.init_app(app)
-{%- endif %}
+    {%- if cookiecutter.static_files == 'webpack' %}
+    assets.init_app(app){% endif %}
+    {%- if cookiecutter.with_admin == 'y' %}
+    admin.init_app(app){% endif %}
+    {%- if cookiecutter.with_stripe == 'y' %}
+    stripe.init_app(app){% endif %}
 
     app.register_blueprint(public_bp)
     app.register_blueprint(private_bp)
