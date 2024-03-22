@@ -2,8 +2,8 @@
 
 *A "boring technology" template for the Flask microframework.*
 
-This a a **minimalist's** **production-ready** [Flask](http://flask.pocoo.org) project
-template with a set of all-importnat end-user features (authentication, user data
+This a **minimalist's** **production-ready** [Flask](http://flask.pocoo.org) project
+template with a set of all-important end-user features (authentication, user data
 management, etc.) built with a boring technology.
 
 This template builds on
