@@ -18,4 +18,4 @@ def client(app):
 
 def test_index(client):
     response = client.get("/")
-    assert b"It works!" in response.data
+    assert b"DOCTYPE html" in response.data

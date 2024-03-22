@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 
 from flask import current_app
@@ -31,8 +32,12 @@ class Assets:
         self._get_webpack_assets(current_app)
 
     def _get_webpack_assets(self, app):
-        with app.open_resource(self.manifest_path) as manifest:
-            self.assets = json.load(manifest)
+        if os.path.exists(os.path.join(app.root_path, self.manifest_path)):
+            with app.open_resource(self.manifest_path) as manifest:
+                self.assets = json.load(manifest)
+        else:
+            logging.warning(f"Webpack {self.manifest_path} not found")
+            self.assets = {}
 
 
 assets = Assets()

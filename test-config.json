@@ -2,10 +2,19 @@
     "cookiecutter": {
         "application_name": "Your Application",
         "package_name": "yourapplication",
+        "use_poetry": "y",
         "use_flake8": "y",
         "use_black": "y",
         "use_isort": "y",
-        "use_mypy": "y"
+        "use_mypy": "y",
+
+        "app_bp_name": "app",
+        "index_bp_name": "index",
+        "auth": "auth0",
+        "db": "mysql",
+        "static_files": "webpack",
+        "with_admin": "y",
+        "with_stripe": "y",
+        "use_htmx": "y"
     }
 }
-

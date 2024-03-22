@@ -5,32 +5,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark" />
-    {%- if cookiecutter.static_files == 'webpack' -%}
-    {%- raw -%}
+    {%- if cookiecutter.static_files == 'webpack' %}
+    {%- raw %}
     <link rel="stylesheet" href="{{ assets.url_for('styles.css') }}" />
     <script src="{{ assets.url_for('main.js') }}" defer></script>
-    {%- endraw -%}
-    {%- else -%}
-    {%- if cookiecutter.use_htmx == 'y' -%}
-    {%- raw -%}
+    {%- endraw %}
+    {%- else %}
+    {%- if cookiecutter.use_htmx == 'y' %}
     <script src="https://unpkg.com/htmx.org@1.9.11"
       integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
       crossorigin="anonymous"
       defer>
     </script>
-    {%- endraw -%}
-    {%- endif -%}
+    {%- endif %}
     <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
-    {%- raw -%}
+    {%- raw %}
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='main.js') }}" defer></script>
-    {%- endraw -%}
-    {%- endif -%}
-    {%- raw -%}
-    <title>{% block title %}{{cookiecutter.application_name}}{% endblock %}</title>
-    {%- endraw -%}
+    {%- endraw %}
+    {%- endif %}
+    <title>{% raw %}{% block title %}{% endraw %}{{cookiecutter.application_name}}{% raw %}{% endblock %}{% endraw %}</title>
     # endblock
   </head>
   <body>

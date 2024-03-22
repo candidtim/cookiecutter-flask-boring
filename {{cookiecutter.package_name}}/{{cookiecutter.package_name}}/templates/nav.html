@@ -1,14 +1,16 @@
-{%- raw -%}
 <header>
 <nav>
   <ul>
-    <li><a href={{ url_for('public.index') }} title="Available to all users">Home</a></li>
-    <li><a href={{ url_for('private.index') }} title="For signed in users only">Private data</a></li>
-    <li><a href={{ url_for('stripe.checkout') }} title="Purchase">Purchase</a></li>
-    <li><a href={{ url_for('public.error') }} title="This page will produce an error">Error</a></li>
+    <li><a href="{{ '{{' }} url_for('{{ cookiecutter.index_bp_name }}.index') {{ '}}' }}" title="Available to all users">Home</a></li>
+    <li><a href="{{ '{{' }} url_for('{{ cookiecutter.app_bp_name }}.index') {{ '}}' }}" title="For signed in users only">User data</a></li>
+    {%- if cookiecutter.with_stripe == 'y' %}
+    <li><a href="{{ '{{' }} url_for('stripe.checkout') {{ '}}' }}" title="Purchase">Purchase</a></li>
+    {%- endif %}
+    <li><a href="{{ '{{' }} url_for('{{ cookiecutter.index_bp_name }}.error') {{ '}}' }}" title="This page will produce an error">Error</a></li>
   </ul>
   <ul>
   # if current_user is defined and current_user.is_authenticated
+    {%- raw %}
     <li>
       {{ current_user.name }}
       <img src="{{ current_user.picture }}" alt="{{ current_user.name }}" class="avatar">
@@ -20,8 +22,8 @@
   # else
     <li><a href="{{ url_for('auth.login') }}">Sign in</a></li>
     <li>Currently not signed in</li>
+    {%- endraw %}
   # endif
   </ul>
 </nav>
 </header>
-{%- endraw -%}

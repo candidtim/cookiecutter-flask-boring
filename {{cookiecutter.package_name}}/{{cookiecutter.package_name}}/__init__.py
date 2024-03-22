@@ -1,13 +1,15 @@
 from flask import Flask
 
-from {{cookiecutter.package_name}} import assets, auth, db, errors
+from {{cookiecutter.package_name}} import auth, db, errors
+{%- if cookiecutter.static_files == 'webpack' %}
+from {{cookiecutter.package_name}} import assets{% endif %}
 {%- if cookiecutter.with_admin == 'y' %}
 from {{cookiecutter.package_name}} import admin{% endif %}
 {%- if cookiecutter.with_stripe == 'y' %}
 from {{cookiecutter.package_name}} import stripe{% endif %}
 from {{cookiecutter.package_name}}.logging import init_logging
-from {{cookiecutter.package_name}}.private.views import bp as private_bp
-from {{cookiecutter.package_name}}.public.views import bp as public_bp
+from {{cookiecutter.package_name}}.{{ cookiecutter.app_bp_name }}.views import bp as {{ cookiecutter.app_bp_name }}_bp
+from {{cookiecutter.package_name}}.{{ cookiecutter.index_bp_name }}.views import bp as {{ cookiecutter.index_bp_name }}_bp
 
 
 def create_app(config_overrides=None):
@@ -32,7 +34,7 @@ def create_app(config_overrides=None):
     {%- if cookiecutter.with_stripe == 'y' %}
     stripe.init_app(app){% endif %}
 
-    app.register_blueprint(public_bp)
-    app.register_blueprint(private_bp)
+    app.register_blueprint({{ cookiecutter.index_bp_name }}_bp)
+    app.register_blueprint({{ cookiecutter.app_bp_name }}_bp)
 
     return app

@@ -13,7 +13,7 @@ from .models import Data, db
 def index():
     query = db.select(Data).filter_by(user_id=current_user.id)
     data = db.session.scalars(query).all()
-    return render_template("private/index.html", data=data)
+    return render_template("{{ cookiecutter.app_bp_name }}/index.html", data=data)
 
 
 @bp.route("/add-data", methods=["POST"])
@@ -23,8 +23,8 @@ def add_data():
     data = Data(user_id=current_user.id, text=text)
     db.session.add(data)
     db.session.commit()
-    {%- if cookiecutter.use_htmx != "y" -%}
-    return redirect(url_for("private.index"))
-    {%- else -%}
-    return render_template("private/added-data.html", data=data)
-    {%- endif -%}
+    {%- if cookiecutter.use_htmx != "y" %}
+    return redirect(url_for("{{ cookiecutter.app_bp_name }}.index"))
+    {%- else %}
+    return render_template("{{ cookiecutter.app_bp_name }}/added-data.html", data=data)
+    {%- endif %}

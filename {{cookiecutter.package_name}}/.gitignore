@@ -5,24 +5,21 @@ __pycache__/
 {%- if cookiecutter.use_poetry != 'y' %}
 venv/
 build/
-{% endif %}
+{%- endif %}
 dist/
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
-{%- if cookiecutter.static_files == 'webpack' -%}
-+node_modules/
-{%- endif -%}
-+
-+# Local development environment
-+.env*
-+!.env.example
-+instance/
-+requirements.txt
-{%- if cookiecutter.db == 'mysql' -%}
-+mysql-data/
-{%- endif -%}
-{%- if cookiecutter.static_files == 'webpack' -%}
-+assets/package-lock.json
-+yourapplication/static/
-{%- endif -%}
+{%- if cookiecutter.static_files == 'webpack' %}
+node_modules/
+{%- endif %}
+
+# Local development environment
+.env*
+!.env.example
+instance/
+requirements.txt
+{%- if cookiecutter.static_files == 'webpack' %}
+assets/package-lock.json
+{{ cookiecutter.package_name }}/static/
+{%- endif %}

@@ -5,7 +5,7 @@ from . import bp
 
 @bp.route("/")
 def index():
-    return render_template("public/index.html")
+    return render_template("{{ cookiecutter.index_bp_name }}/index.html")
 
 
 @bp.route("/error")

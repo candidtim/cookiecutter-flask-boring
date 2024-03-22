@@ -5,32 +5,32 @@
 <section>
   Your data
   <ul id="data" class="maybe-empty">
-    {%- raw -%}
+    {%- raw %}
     {%- for datum in data %}
     <li>{{ datum.text }}</li>
     {% endfor -%}
-    {%- endraw -%}
+    {%- endraw %}
   </ul>
   <div class="if-empty">There is no data yet</div>
 </section>
 <section>
-{%- if cookiecutter.use_htmx != "y" -%}
-{%- raw -%}
+{%- if cookiecutter.use_htmx != "y" %}
+{%- raw %}
   <form action="{{ url_for('.add_data') }}" method="POST">
     <input class="button-fit" type="submit" value="Add more data">
   </form>
-{%- endraw -%}
-{%- else -%}
-{%- raw -%}
+{%- endraw %}
+{%- else %}
+{%- raw %}
   <button class="button-fit"
-    hx-post="{{ url_for('.add_data_htmx') }}"
+    hx-post="{{ url_for('.add_data') }}"
     hx-trigger="click"
     hx-target="#data"
     hx-swap="beforeend"
   >
     Add more data (HTMX)
   </button>
-{%- endraw -%}
-{%- endif -%}
+{%- endraw %}
+{%- endif %}
 </section>
 # endblock

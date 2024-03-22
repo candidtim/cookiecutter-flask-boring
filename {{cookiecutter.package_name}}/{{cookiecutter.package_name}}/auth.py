@@ -18,15 +18,19 @@ from flask_login import (
 from sqlalchemy.orm.exc import NoResultFound
 
 from .db import db
+{%- if cookiecutter.auth == "auth0" %}
 
-{% if cookiecutter.auth == "auth0" %}
 bp = OAuth2ConsumerBlueprint(
     "auth",
     __name__,
     scope="openid profile email",
-    redirect_to="private.index",
+    redirect_to="{{ cookiecutter.app_bp_name }}.index",
 )
+{%- else %}
+
+bp = Blueprint("auth", __name__)
 {%- endif %}
+
 login_manager = LoginManager()
 
 
@@ -46,8 +50,8 @@ class User(db.Model, UserMixin):
     @property
     def is_admin(self):
         return self.email == app.config["ADMIN_EMAIL"]
+    {%- endif %}
 
-    {% endif -%}
     def get_id(self):
         return str(self.id)
 {%- if cookiecutter.auth == "auth0" %}
@@ -56,9 +60,9 @@ class User(db.Model, UserMixin):
 class OAuth(OAuthConsumerMixin, db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User)
+{%- endif %}
 
 
-{% endif -%}
 def init_app(app):
     # setup login manager
     login_manager.init_app(app)
@@ -79,7 +83,9 @@ def init_app(app):
         user=lambda: current_user,
         user_required=True,
     )
+{%- endif %}
     app.register_blueprint(bp, url_prefix="/auth")
+{%- if cookiecutter.auth == "auth0" %}
 
 
 @oauth_authorized.connect_via(bp)
@@ -105,9 +111,9 @@ def on_logged_in(blueprint, token):
         login_user(user=user)
     else:
         abort(res.status_code)
+{%- endif %}
 
 
-{% endif -%}
 @login_manager.user_loader
 def load_user(user_id: int) -> User:
     return db.session.get(User, user_id)
@@ -117,10 +123,11 @@ def load_user(user_id: int) -> User:
 @bp.route("/login")
 def login():
     # TODO: login routine here
-    # login_user(user)
+    user = None
+    login_user(user)
+{%- endif %}
 
 
-{% endif -%}
 @bp.route("/logout")
 @login_required
 def logout():
@@ -130,7 +137,7 @@ def logout():
 
     # sign out from auth0:
     params = {
-        "returnTo": url_for("public.index", _external=True),
+        "returnTo": url_for("{{ cookiecutter.index_bp_name }}.index", _external=True),
         "client_id": app.config["AUTH0_OAUTH_CLIENT_ID"],
     }
     logout_url = (

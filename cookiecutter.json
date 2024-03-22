@@ -7,8 +7,10 @@
   "use_isort": "n",
   "use_mypy": "n",
 
+  "app_bp_name": "app",
+  "index_bp_name": "index",
   "auth": ["flask-login", "auth0"],
-  "db": ["sqlite", "mysql"],
+  "db": ["sqlite", "mysql", "postgres"],
   "static_files": ["raw", "webpack"],
   "with_admin": "n",
   "with_stripe": "n",

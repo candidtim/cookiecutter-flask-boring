@@ -1,21 +1,43 @@
-# cookiecutter-flask-minimal
+# cookiecutter-flask-boring
 
-*A microtemplate for a microframework.*
+*A "boring technology" template for the Flask microframework.*
 
-This is a **minimalist's** **production-ready** [Flask](http://flask.pocoo.org) project template:
+This a a **minimalist's** **production-ready** [Flask](http://flask.pocoo.org) project
+template with a set of all-importnat end-user features (authentication, user data
+management, etc.) built with a boring technology.
 
- - no external dependencies except for [Flask](http://flask.pocoo.org) and [pytest](https://pytest.org)
- - doesn't impose any choices of third-party libraries
- - project set-up as per Flask documentation, including things like logging and config, testing and packaging
+This template builds on
+[cookiecutter-flask-minimal](https://github.com/candidtim/cookiecutter-flask-minimal),
+shares its minimalistic approach, and provides a feature-rich starting point
+for a new web application. Just like its parent template, it attempts to impose
+as few choices as possible, or proposes the most boring solutions where a
+dependency is inevitable. It adds:
+
+ - minimal working `Flask-SQLAlchemy` and `Flask-Migrate` setup
+ - authentication with either of:
+   * a minimal `Flask-Login` setup (build your own authentication on top)
+   * a complete working authentication with [Auth0](https://auth0.com/)
+     (authentication flow and user secrets are managed by Auth0)
+ - minimalistic starter blueprint for the end-user web app, and a minimalistic
+   blueprint for the front page; no web frameworks or libraries, but the most
+   boring server-side HTML
+ - optional `Flask-Admin` setup
+ - optional [Stripe](https://stripe.com/) integration with a complete
+   payment flow
+ - optional [webpack](https://webpack.js.org/) configuration to properly
+   package the static assets, with hot realod in the development mode
+ - optional [HTMX](https://htmx.org/) setup
+
+And the fetures inherited from the parent
+[cookiecutter-flask-minimal](https://github.com/candidtim/cookiecutter-flask-minimal):
+
+ - project set-up as per Flask documentation, including things like logging and
+   config, testing and packaging
  - optional and off by deafult: flake8, black and mypy configuration
  - optional: [Poetry](https://python-poetry.org/) build tool, setuptools by defualt
  - preserves the pure joy of developing with Flask!
 
-**Now upgraded to Flask 3 !**
-
-If you look for the **Flask 2** version, check out the `flask2` branch. It is
-not actively maintained but is tested and known to work with the latest Flask 2
-release (2.3.3 as of the time of this writing).
+**Built for Flask 3 !**
 
 ## Usage
 
@@ -25,65 +47,7 @@ Install [cookiecutter](https://github.com/audreyr/cookiecutter):
 
 Create your application from this template:
 
-    cookiecutter https://github.com/candidtim/cookiecutter-flask-minimal.git
-
-All set! Run the application:
-
-    cd yourapplication
-    make run
-
-And then open it at [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
-
-## Features
-
-Included:
-
- - minimal production-ready Flask application:
-   an [application factory](https://flask.palletsprojects.com/en/3.0.x/patterns/appfactories/),
-   and a single [blueprint](https://flask.palletsprojects.com/en/3.0.x/blueprints/)
-   with a sample static resource, template and an index view, packaged as as per
-   [Larger Applications](https://flask.palletsprojects.com/en/3.0.x/patterns/packages/)
-
- - setuptools (or Poetry) configuration to package and release the application,
-   as well as to develop locally
-
-    - side note: [Poetry](https://python-poetry.org/) is a popular build tool
-      and it provides a well-structured and
-      [well-documented](https://python-poetry.org/docs/) development
-      environment; but, this also means that the generated project will not
-      explain or document its usage and you would need to refer to the Poetry
-      documentation
-
- - configuration system, as per
-   [Configuration Handling](https://flask.palletsprojects.com/en/3.0.x/config/)
-
- - basic [Logging](https://flask.palletsprojects.com/en/3.0.x/logging/) configuration
-
- - sample test and testing set-up, as per
-   [Testing Flask Applications](https://flask.palletsprojects.com/en/3.0.x/testing/)
-
- - optional (and off by deafult) configuration for flake8, black and mypy
-
- - Makefile with a few typical tasks automated (see generated README for details)
-
-Not included:
-
- - everything else: there is no SQLAlchemy, or MongoKit, or Bootstrap CSS, or
-   React, or whatever else; it is up to you to chose how to implement your
-   application;
-   [Patterns for Flask](https://flask.palletsprojects.com/en/3.0.x/patterns/)
-   documents well how to easily add these if necessary
-
- - there are no "sample" features or examples of how to use Flask; this
-   template is not intended as a tutorial, but as a well-configured starting
-   point for a new implementation; refer to the
-   [Flask documentation](https://flask.palletsprojects.com/en/3.0.x/quickstart/)
-   to learn Flask if necessary
-
- - no choice on how to deploy the application is made, no WSGI container is
-   chosen; see
-   [Deploying to Production](https://flask.palletsprojects.com/en/3.0.x/deploying/)
-   for the options most suitable for your infrastructure
+    cookiecutter https://github.com/candidtim/cookiecutter-flask-boring.git
 
 # Contributions
 
@@ -97,10 +61,3 @@ choice variables, and, ultimately, hooks, in order to create an optional
 feature.
 
 If you do a change, use `make test` from root directory to test the updated template.
-
-# Attributions
-
-Configuration of this entire project template is based on
-[Flask documentation](https://flask.palletsprojects.com/en/3.0.x/).
-Please, note however, that this template is not guaranteed to follow Flask
-documentation precisely.

@@ -23,7 +23,10 @@ flask-dance = {extras = ["sqla"], version = "^7.1.0"}{% endif %}
 {%- if cookiecutter.with_admin == 'y' %}
 flask-admin = "^1.6.1"{% endif %}
 {%- if cookiecutter.db == 'mysql' %}
-pymysql = "^1.1.0"{% endif %}
+pymysql = "^1.1.0"
+cryptography = "^42.0.5"  # pymysql requires cryptography for authentication{% endif %}
+{%- if cookiecutter.db == 'postgres' %}
+psycopg2 = "^2.9.9"{% endif %}
 {%- if cookiecutter.with_stripe == 'y' %}
 stripe = "^8.7.0"{% endif %}
 
@@ -48,17 +51,23 @@ version = "1.0.0"
 requires-python = ">=3.8.1,<4"
 dependencies = [
     "Flask>=3.0.2,<4",
+    "python-dotenv>=1.0.1,<2",
     "flask-sqlalchemy>=3.1.1,<4",
     "flask-migrate>=4.0.5,<5",
     "flask-login>=0.6.3,<1",
     {%- if cookiecutter.auth == "auth0" %}
-    "flask-dance[sqla]>=7.1.0,<8"}{% endif %}
+    "flask-dance[sqla]>=7.1.0,<8",{% endif %}
     {%- if cookiecutter.with_admin == 'y' %}
-    "flask-admin>=1.6.1,<2"{% endif %}
+    "flask-admin>=1.6.1,<2",{% endif %}
     {%- if cookiecutter.db == 'mysql' %}
-    "pymysql>=1.1.0,<2"{% endif %}
+    "pymysql>=1.1.0,<2",{% endif %}
+    {%- if cookiecutter.db == 'postgres' %}
+    "pymysql>=1.1.0,<2",
+    "cryptography>=42.0.5",{% endif %}
+    {%- if cookiecutter.db == 'postgres' %}
+    "psycopg2>=2.9.9,<3",{% endif %}
     {%- if cookiecutter.with_stripe == 'y' %}
-    "stripe>=8.7.0,<9"{% endif %}
+    "stripe>=8.7.0,<9",{% endif %}
 ]
 
 [project.optional-dependencies]

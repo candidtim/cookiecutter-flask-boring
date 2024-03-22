@@ -1,25 +1,31 @@
 # {{cookiecutter.application_name}}
 
-TODO: update content
-
-TODO: describe "first steps":
-
- - create migrations
- - run code reformat (recommended)
-
 {{cookiecutter.application_name}} description
 
 ## Quick Start
 
+Configure the development environment:
+
+    cp .env.example .env
+    open .env  # configure the environment variables
+{%- if cookiecutter.use_poetry == 'y' %}
+
+Install the dependencies and run the application:
+
+    poetry install
+    poetry run flask --debug run
+{%- else %}
+
 Run the application:
 
     make run
+{%- endif %}
 
-And open it in the browser at [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+And open it in the browser at [http://localhost:5000/](http://localhost:5000/)
 
 ## Prerequisites
 
-Python >=3.7
+Python >=3.8
 
 ## Development environment
 {%- if cookiecutter.use_poetry == 'y' %}
@@ -42,7 +48,7 @@ Quick start:
 
 Run a development server in debug mode (changes in are reloaded automatically):
 
-    poetry run flask --app {{cookiecutter.package_name}} --debug run
+    poetry run flask --debug run
 {%- else %}
 
  - `make venv`: creates a virtualenv with dependencies and this application
@@ -74,22 +80,40 @@ Run a development server in debug mode (changes in are reloaded automatically):
    add development dependencies under `project.optional-dependencies.*`; run
    `make clean && make venv` to reinstall the environment
 {%- endif %}
+{%- if cookiecutter.db != 'sqlite' %}
+
+To run a development database in a Docker container:
+{%- if cookiecutter.use_poetry == 'y' %}
+
+    ./db.sh
+{%- else %}
+
+    make db
+{%- endif %}
+
+The data is stored in the `./instance` directory.
+{%- endif %}
+{%- if cookiecutter.static_files == 'webpack' %}
+
+To build the frontend assets:
+
+    cd assets
+    npm install
+    npm run dev   # build a development version
+    npm run prod  # build a production version
+    npm run watch # watch for changes and rebuild a development version automatically
+{%- endif %}
 
 ## Configuration
 
-Default configuration is loaded from `{{cookiecutter.package_name}}.default_settings` and can be
-overriden by environment variables with a `FLASK_` prefix. See
+Configuration is loaded from environment variables and a `.env` file. Default
+configuration is loaded from `{{cookiecutter.package_name}}.defaults` and can
+be overriden by environment variables with a `FLASK_` prefix. See
 [Configuring from Environment Variables](https://flask.palletsprojects.com/en/3.0.x/config/#configuring-from-environment-variables).
-
-Consider using
-[dotenv](https://flask.palletsprojects.com/en/3.0.x/cli/#environment-variables-from-dotenv).
 
 ## Deployment
 
 See [Deploying to Production](https://flask.palletsprojects.com/en/3.0.x/deploying/).
-
-You may use the distribution (`make dist`) to publish it to a package index,
-deliver to your server, or copy in your `Dockerfile`, and insall it with `pip`.
 
 You must set a
 [SECRET_KEY](https://flask.palletsprojects.com/en/3.0.x/tutorial/deploy/#configure-the-secret-key)

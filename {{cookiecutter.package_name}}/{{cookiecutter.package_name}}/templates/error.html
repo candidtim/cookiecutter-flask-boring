@@ -1,17 +1,17 @@
-{%- raw -%}
 # extends "base.html"
 
 # block body
 <section>
+  {%- raw -%}
   <div><strong>{{ error.code }} - {{ error.name }}</strong></div>
   <div>{{ error.description }}</div>
+  {%- endraw -%}
 </section>
 <section>
   # if current_user is defined and current_user.is_authenticated
-  <a href="{{ url_for('private.index') }}">Home</a>
+  <a href="{{ '{{' }} url_for('{{ cookiecutter.app_bp_name }}.index') {{ '}}' }}">Home</a>
   # else
-  <a href="{{ url_for('public.index') }}">Home</a>
+  <a href="{{ '{{' }} url_for('{{ cookiecutter.index_bp_name }}.index') {{ '}}' }}">Home</a>
   # endif
 </section>
 # endblock
-{%- endraw -%}

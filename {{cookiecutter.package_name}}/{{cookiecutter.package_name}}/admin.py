@@ -6,7 +6,7 @@ from flask_login import current_user
 
 from .auth import User
 from .db import db
-from .private.models import Data
+from .{{ cookiecutter.app_bp_name }}.models import Data
 {%- if cookiecutter.with_stripe == 'y' %}
 from .stripe.models import StripeCheckout
 {%- endif %}
